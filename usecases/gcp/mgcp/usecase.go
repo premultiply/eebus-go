@@ -29,17 +29,17 @@ type MGCP struct {
 	acFrequency              *model.MeasurementIdType
 }
 
-// creates a new MGCP usecase instance for a MonitoredUnit entity
+// creates a new MGCP usecase instance for a GridConnectionPoint entity
 //
 // parameters:
 //   - localEntity: the local entity for which the use case is created
 //   - eventCB: the callback function to be called when an event is triggered
 //   - monitorFeedInLimitationConfig: (optional) configuration parameters for MGCP scenario 1
 //   - monitorPowerConfig: (required) configuration parameters for MGCP scenario 2
-//   - monitorEnergyConfig: (required) configuration parameters for MGCP scenario 3
-//   - monitorCurrentConfig: (optional) configuration parameters for MGCP scenario 4
-//   - monitorVoltageConfig: (optional) configuration parameters for MGCP scenario 5
-//   - monitorFrequencyConfig: (optional) configuration parameters for MGCP scenario 6
+//   - monitorEnergyConfig: (required) configuration parameters for MGCP scenarios 3 and 4
+//   - monitorCurrentConfig: (optional) configuration parameters for MGCP scenario 5
+//   - monitorVoltageConfig: (optional) configuration parameters for MGCP scenario 6
+//   - monitorFrequencyConfig: (optional) configuration parameters for MGCP scenario 7
 //
 // possible errors:
 //   - configuration error
@@ -94,7 +94,7 @@ func NewMGCP(
 
 	useCaseScenarios = append(useCaseScenarios, api.UseCaseScenario{
 		Scenario:  model.UseCaseScenarioSupportType(4),
-		Mandatory: false,
+		Mandatory: true,
 		ServerFeatures: []model.FeatureTypeType{
 			model.FeatureTypeTypeMeasurement,
 			model.FeatureTypeTypeElectricalConnection,
@@ -136,7 +136,7 @@ func NewMGCP(
 
 	usecase := usecase.NewUseCaseBase(
 		localEntity,
-		model.UseCaseActorTypeMonitoringAppliance,
+		model.UseCaseActorTypeGridConnectionPoint,
 		model.UseCaseNameTypeMonitoringOfGridConnectionPoint,
 		"1.0.0",
 		"release",
